@@ -412,6 +412,12 @@ export function Prompt(props: PromptProps) {
         category: "Prompt",
         hidden: true,
         run: () => {
+          if (kv.get("clear_prompt_save_history", false) && store.prompt.input !== "") {
+            history.append({
+              ...store.prompt,
+              mode: store.mode,
+            })
+          }
           input.clear()
           input.extmarks.clear()
           setStore("prompt", {
